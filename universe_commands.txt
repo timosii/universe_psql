@@ -1,0 +1,24 @@
+CREATE TABLE superclusters(superclusters_id SERIAL PRIMARY KEY, name VARCHAR(30) NOT NULL UNIQUE, has_life BOOLEAN NOT NULL);
+CREATE TABLE galaxy(name VARCHAR(30) NOT NULL UNIQUE, galaxy_id SERIAL PRIMARY KEY, has_life BOOLEAN NOT NULL, is_spherical BOOLEAN, galaxy_types TEXT);
+CREATE TABLE star(name VARCHAR(30) NOT NULL UNIQUE, star_id SERIAL PRIMARY KEY, size NUMERIC(4, 1), age_in_million_of_years INT NOT NULL, spectral_class TEXT);
+CREATE TABLE planet(name VARCHAR(30) NOT NULL UNIQUE, planet_id SERIAL PRIMARY KEY, has_life BOOLEAN, distance_from_earth INT NOT NULL, planet_types TEXT);
+CREATE TABLE moon(name VARCHAR(30) NOT NULL UNIQUE, moon_id SERIAL PRIMARY KEY, distance_from_planet INT NOT NULL, year_of_discovery INT);
+
+ALTER TABLE galaxy ADD COLUMN superclusters_id INT NOT NULL REFERENCES superclusters(superclusters_id);
+ALTER TABLE star ADD COLUMN galaxy_id INT NOT NULL REFERENCES galaxy(galaxy_id);
+ALTER TABLE planet ADD COLUMN star_id INT NOT NULL REFERENCES star(star_id);
+ALTER TABLE moon ADD COLUMN planet_id INT NOT NULL REFERENCES planet(planet_id);
+
+INSERT INTO superclusters(name, has_life) VALUES('Laniakea', True), ('Virgo', False), ('Hydrocentaur', False), ('Veronicas Hair', True);
+ 
+
+INSERT INTO galaxy(name, has_life, is_spherical, galaxy_types, superclusters_id) VALUES('Milky_Way', True, True, 'SBbc', 1),('Andromeda', False, True, 'de0', 2),('Triangle', False, False, 'SAc', 2),('WLM', False, True, 'lb(s)m', 3), ('NGS_3109', True, False, 'SB(s)m', 3), ('Compass', False, True, 'Sa(s)b', 4); 
+
+INSERT INTO star(name, size, age_in_million_of_years, spectral_class, galaxy_id) VALUES('Stephenson_2-18', 215.8, 1160000, 'M', 1), ('Sun', 1, 457.7, 'G2V', 1),('RW_Cefeya', 153.5, 67000, 'O', 2), ('Wasterland', 154.8, 680000, 'G', 3), ('GCIRS_7', 117.1, 78800, 'M', 4),('Antares', 85.4, 120000, 'A', 5);  
+
+INSERT INTO planet(name, has_life, distance_from_earth, planet_types, star_id) VALUES('Earth', True, 0, 'Earth_type', 1),('Mercury', False, 91, 'Earth_type', 1),('Venera', False, 41, 'Earth_type', 2),('Mars', False, 78, 'Earth_type', 2),('Jupiter', False, 628, 'Gas_giant', 2),('Neptun', True, 4347, 'Ice_giant', 5),('Another_planet_1', False, 778, 'Dwarf', 4), ('Another_planet_2', False, 666, 'Dwarf', 2), ('Another_planet_3', False, 8, 'Dwarf', 4),('Another_planet_4', True, 7, 'Dwarf', 4),('Another_planet_5', False, 778, 'Dwarf', 4),('Another_planet_6', False, 778, 'Dwarf', 4);
+
+INSERT INTO moon(name, distance_from_planet, year_of_discovery, planet_id) VALUES('Moon', 384000, 1600, 2),('Io', 3642, 1610, 2), ('Another_moon_1', 20020, 1560, 2), ('Another_moon_2', 20020, 1560, 2), ('Another_moon_3', 20020, 1560, 3), ('Another_moon_4', 20020, 1560, 2), ('Another_moon_5', 20020, 1560, 2), ('Another_moon_6', 20020, 1560, 2), ('Another_moon_7', 20020, 1560, 2), ('Another_moon_8', 20020, 1560, 2), ('Another_moon_9', 20020, 1560, 2), ('Another_moon_10', 20020, 1560, 2), ('Another_moon_11', 20020, 1560, 2), ('Another_moon_12', 20020, 1560, 2), ('Another_moon_13', 20020, 1560, 2), ('Another_moon_14', 20020, 1560, 2), ('Another_moon_15', 20020, 1560, 2),  ('Another_moon_16', 20020, 1560, 2),  ('Another_moon_17', 20020, 1560, 2),  ('Another_moon_18', 20020, 1560, 3);  
+
+
+

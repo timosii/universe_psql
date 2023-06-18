@@ -1,0 +1,50 @@
+superclusters
+  columns: 
+    name VARCHAR(30) NOT NULL UNIQUE
+    superclusters_id SERIAL PRIMARY KEY
+    has_life BOOLEAN NOT NULL
+  rows: Laniakea, Virgo, Hydrocentaur, Veronica's Hair
+
+
+galaxy
+  columns: 
+    name VARCHAR(30) NOT NULL UNIQUE
+    galaxy_id SERIAL PRIMARY KEY
+    has_life BOOLEAN NOT NULL
+    is_spherical BOOLEAN
+    galaxy_types TEXT
+    superclusters_id INT NOT NULL FOREIGN KEY
+  rows: Milky_Way, Andromeda, Triangle, WLM, NGS 3109, Compass
+
+
+star
+  columns:
+    name VARCHAR(30) NOT NULL UNIQUE
+    star_id SERIAL PRIMARY KEY
+    size NUMERIC(4, 1)
+    age_in_million_of_years INT NOT NULL
+    spectral_class TEXT
+    galaxy_id INT NOT NULL FOREIGN KEY
+  rows:
+
+
+planet
+  columns:
+    name VARCHAR(30) NOT NULL UNIQUE
+    planet_id SERIAL PRIMARY KEY
+    has_life BOOLEAN
+    distance_from_earth INT NOT NULL
+    planet_types TEXT
+    star_id INT NOT NULL FOREIGN KEY
+  rows:
+
+
+moon
+  columns:
+    name VARCHAR(30) NOT NULL UNIQUE
+    moon_id SERIAL PRIMARY KEY
+    distance_from_planet INT NOT NULL
+    year_of_discovery INT
+    planet_id INT NOT NULL FOREIGN KEY
+ rows:
+
